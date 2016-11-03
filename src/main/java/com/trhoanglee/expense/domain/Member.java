@@ -46,6 +46,17 @@ public class Member {
 	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
 	private Set<Team> managedTeams = new HashSet<>();
 
+	public Member() {
+		// We need to create a no-argument constructor whenever we have other arguments constructors 
+	}
+	
+	public Member(Name name, String email, String mobile, Date dob) {
+		this.name = name;
+		this.email = email;
+		this.mobile = mobile;
+		this.dob = dob;
+	}
+
 	public Long getId() {
 		return id;
 	}

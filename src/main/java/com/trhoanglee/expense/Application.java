@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
+import com.trhoanglee.expense.service.MemberService;
+
 /**
  * @author hoangtle
  */

@@ -1,4 +1,4 @@
-package com.trhoanglee.expense;
+package com.trhoanglee.expense.service;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -25,9 +25,12 @@ import com.trhoanglee.expense.repository.MemberRepository;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepo;
-
+    
     @Transactional
     public Member saveMember(@Valid Member member) {
+    	if (member == null) {
+    		return null;
+    	}
         return memberRepo.save(member);
     }
 
@@ -37,16 +40,16 @@ public class MemberService {
     }
 
     public Member getMember(Long id) {
-        return memberRepo.getOne(id);
+        return memberRepo.findOne(id);
     }
 
     public List<Member> search(String keyword, int page, int pageSize) {
-        keyword = (keyword == null) ? "" : keyword;
+        keyword = (keyword == null) ? "" : keyword.toLowerCase();
         return memberRepo.searchMembers(keyword, new PageRequest(page, pageSize));
     }
 
     @Transactional
-    public void deleteMembers(String[] ids) {
+    public void deleteMembers(Long... ids) {
         memberRepo.deleteMembers(ids);
     }
     
