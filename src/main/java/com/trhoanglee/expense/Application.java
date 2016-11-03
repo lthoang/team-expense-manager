@@ -1,24 +1,23 @@
 package com.trhoanglee.expense;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 /**
  * @author hoangtle
  */
-@ComponentScan
-@EnableAutoConfiguration
+@EntityScan(basePackageClasses = {Application.class, Jsr310JpaConverters.class})
+@SpringBootApplication
 public class Application {
-    private static final Logger LOG = LoggerFactory.getLogger(Application.class.getCanonicalName());
-    public static void main(String... args) {
-        ApplicationContext appContext = SpringApplication.run(Application.class, args);
-        
-        MemberService memberService = appContext.getBean(MemberService.class);
-        LOG.info(memberService.ping());
-        SpringApplication.exit(appContext);
-    }
+	public static void main(String... args) throws IOException {
+		ApplicationContext appContext = SpringApplication.run(Application.class, args);
+		MemberService memberService = appContext.getBean(MemberService.class);
+		String membersFilePath = (args.length > 0)? args[0] : "etc/members.txt";
+		memberService.loadMembersFromFile(membersFilePath);
+	}
 }
