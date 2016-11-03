@@ -26,6 +26,11 @@ public class TeamMember {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
     
+    public TeamMember(Team team, Member member) {
+    	this.team = team;
+    	this.member = member;
+    }
+    
     public Long getId() {
         return id;
     }
