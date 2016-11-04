@@ -3,8 +3,6 @@ package com.trhoanglee.expense.domain;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,9 +12,8 @@ import javax.persistence.Table;
 @Table(name = "TEAMS_MEMBERS")
 public class TeamMember {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private String id;
     
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
@@ -26,16 +23,20 @@ public class TeamMember {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
     
+    public TeamMember() {
+        
+    }
+    
     public TeamMember(Team team, Member member) {
     	this.team = team;
     	this.member = member;
     }
     
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,9 +15,8 @@ import javax.persistence.TemporalType;
 @Table(name = "EXPENSES")
 public class Expense {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private String id;
 
     @Column(name = "DESCRIPTION")
     private String description;
@@ -35,11 +32,11 @@ public class Expense {
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

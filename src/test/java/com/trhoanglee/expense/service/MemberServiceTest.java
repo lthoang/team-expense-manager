@@ -2,6 +2,7 @@ package com.trhoanglee.expense.service;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertNotNull;
 import java.io.IOException;
@@ -40,24 +41,34 @@ public class MemberServiceTest {
 	public void testSearchMembers() {
 		List<Member> members;
 		
+		//search all
 		members = memberService.search("", 0, 10);
 		assertThat(members.size(), is(equalTo(5)));
 		
-		members = memberService.search("First1", 0, 10);
+		//search by id
+		members = memberService.search("001", 0, 10);
 		assertThat(members.size(), is(equalTo(1)));
-		assertThat(members.get(0).getId(), is(equalTo(1L)));
+		assertThat(members.get(0).getEmail(), is(equalTo("email1@test.com")));
 
-		members = memberService.search("Middle2", 0, 10);
+		//search by first name
+		members = memberService.search("First2", 0, 10);
 		assertThat(members.size(), is(equalTo(1)));
-		assertThat(members.get(0).getId(), is(equalTo(2L)));
+		assertThat(members.get(0).getId(), is(equalTo("002")));
 		
-		members = memberService.search("Last3", 0, 10);
+		//search by middle name
+		members = memberService.search("Middle3", 0, 10);
 		assertThat(members.size(), is(equalTo(1)));
-		assertThat(members.get(0).getId(), is(equalTo(3L)));
+		assertThat(members.get(0).getId(), is(equalTo("003")));
 		
-		members = memberService.search("email4", 0, 10);
+		//search by last name
+        members = memberService.search("Last4", 0, 10);
+        assertThat(members.size(), is(equalTo(1)));
+        assertThat(members.get(0).getId(), is(equalTo("004")));
+
+        //search by email
+        members = memberService.search("email5@test.com", 0, 10);
 		assertThat(members.size(), is(equalTo(1)));
-		assertThat(members.get(0).getId(), is(equalTo(4L)));
+		assertThat(members.get(0).getId(), is(equalTo("005")));
 	}
 	
 	@Test
@@ -69,15 +80,14 @@ public class MemberServiceTest {
 		List<Member> members = memberService.search("newF", 0, 10);
 		assertThat(members.size(), is(equalTo(1)));
 		member = members.get(0);
-		assertNotNull(member);
 		assertThat(member.getName().getFullNameFML(), is(equalTo("newF newM newL")));
 		
 		//update
+		member = memberService.getMember("001");
+		assertNotNull(member);
 		member.setEmail("newTestEmail@test.com");
 		memberService.saveMember(member);
-		members = memberService.search("newF", 0, 10);
-		member = members.get(0);
-		assertNotNull(member);
+		member = memberService.getMember("001");
 		assertThat(member.getEmail(), is(equalTo("newTestEmail@test.com")));
 	}
 	
@@ -86,6 +96,13 @@ public class MemberServiceTest {
 		List<Member> members;
 		members = memberService.search("", 0, 10);
 		assertThat(members.size(), is(equalTo(5)));
-		memberService.deleteMembers(1L, 2L);
+		memberService.deleteMembers("001", "002");
+		
+		members = memberService.search("", 0, 10);
+		assertThat(members.size(), is(equalTo(3)));
+		members.forEach(member -> {
+		    assertThat(member.getId(), is(not("001")));
+		    assertThat(member.getId(), is(not("002")));
+		});
 	}
 }

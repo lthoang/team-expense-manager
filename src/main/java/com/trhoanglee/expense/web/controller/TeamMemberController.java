@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trhoanglee.expense.domain.TeamMember;
 import com.trhoanglee.expense.service.TeamMemberService;
-import com.trhoanglee.expense.util.CommonUtils;
 
 @RestController
 @RequestMapping(value = "/api/teamMembers")
@@ -27,7 +26,7 @@ public class TeamMemberController {
 	
 	@RequestMapping(value = "/{id}", method = GET)
 	public TeamMember getTeamMember(@PathVariable("id") String id) {
-	    return teamMemberService.getTeamMember(CommonUtils.parsePathVariableId(id));
+	    return teamMemberService.getTeamMember(id);
 	}
 	
 	@RequestMapping(method = POST)
@@ -42,13 +41,13 @@ public class TeamMemberController {
 	public TeamMember updateTeamMember(
 			@PathVariable("id") String id, 
 			@RequestBody TeamMember teamMember) {
-		teamMember.setId(CommonUtils.parsePathVariableId(id));
+		teamMember.setId(id);
 		return teamMemberService.saveTeamMember(teamMember);
 	}
 	
 	@RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteContacts(@RequestParam Long[] ids) {
+    public void deleteContacts(@RequestParam String[] ids) {
 	    teamMemberService.deleteTeamMembers(ids);
     }
 }

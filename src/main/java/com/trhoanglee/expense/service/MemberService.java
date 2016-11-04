@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.validation.Valid;
 
@@ -23,13 +24,22 @@ import com.trhoanglee.expense.repository.MemberRepository;
 @Service
 @Transactional(readOnly = true)
 public class MemberService {
+    private final AtomicInteger idGeneration = new AtomicInteger(1000);
+    
     @Autowired
     private MemberRepository memberRepo;
+    
+    public String idGenerationIncrementAndGet() {
+        return String.valueOf(idGeneration.incrementAndGet());
+    }
     
     @Transactional
     public Member saveMember(@Valid Member member) {
     	if (member == null) {
     		return null;
+    	}
+    	if (member.getId() == null) {
+    	    member.setId(this.idGenerationIncrementAndGet());
     	}
         return memberRepo.save(member);
     }
@@ -39,7 +49,7 @@ public class MemberService {
         memberRepo.deleteAllInBatch();
     }
 
-    public Member getMember(Long id) {
+    public Member getMember(String id) {
         return memberRepo.findOne(id);
     }
 
@@ -49,7 +59,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void deleteMembers(Long... ids) {
+    public void deleteMembers(String... ids) {
         memberRepo.deleteMembers(ids);
     }
     
@@ -64,8 +74,8 @@ public class MemberService {
     }
 
     /**
-     * memberLine format: id|firstName|middleName|lastName|email|mobile|dob dob
-     * format: yyyy-MM-dd
+     * memberLine format: id|firstName|middleName|lastName|email|mobile|dob
+     * dob format: yyyy-MM-dd
      */
     private Member parseMember(String memberLine) {
         String[] items = memberLine.split("\\|");
@@ -74,16 +84,11 @@ public class MemberService {
         }
 
         Member member = new Member();
-        try {
-            member.setId(Long.parseLong(items[0]));
-        } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException(String.format("Invalid member-line format: %s", memberLine, ex));
-        }
+        member.setId(items[0]);
         member.setName(new Name(items[1], items[2], items[3]));
         member.setEmail(items[4]);
         member.setMobile(items[5]);
         member.setDob(new Date(java.sql.Date.valueOf(items[6]).getTime()));
         return member;
     }
-
 }

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trhoanglee.expense.domain.Member;
 import com.trhoanglee.expense.service.MemberService;
-import com.trhoanglee.expense.util.CommonUtils;
 
 @RestController
 @RequestMapping(value = "/api/members")
@@ -37,7 +36,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/{id}", method = GET)
 	public Member getMember(@PathVariable("id") String id) {
-	    return memberService.getMember(CommonUtils.parsePathVariableId(id));
+	    return memberService.getMember(id);
 	}
 	
 	@RequestMapping(method = POST)
@@ -52,13 +51,13 @@ public class MemberController {
 	public Member updateMember(
 			@PathVariable("id") String id, 
 			@RequestBody Member member) {
-		member.setId(CommonUtils.parsePathVariableId(id));
+		member.setId(id);
 		return memberService.saveMember(member);
 	}
 	
 	@RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteContacts(@RequestParam Long[] ids) {
+    public void deleteContacts(@RequestParam String[] ids) {
 	    memberService.deleteMembers(ids);
     }
 }

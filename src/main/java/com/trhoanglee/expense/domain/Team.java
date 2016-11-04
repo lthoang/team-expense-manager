@@ -7,8 +7,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -22,11 +20,12 @@ import javax.persistence.TemporalType;
 @Table(name = "TEAMS")
 public class Team {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private String id;
+    
     @Column(name = "TEAM_NAME")
     private String name;
+    
     @Column(name = "DESCRIPTION")
     private String description;
     
@@ -41,11 +40,22 @@ public class Team {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private Set<TeamMember> teamMembers = new HashSet<>();
     
-    public Long getId() {
+    public Team() {
+        // default no-argument constructor
+    }
+    
+    public Team(String name, String description, Date createdDate, Member manager) {
+        this.name = name;
+        this.description = description;
+        this.createdDate = createdDate;
+        this.manager = manager;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -63,6 +73,14 @@ public class Team {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Member getManager() {

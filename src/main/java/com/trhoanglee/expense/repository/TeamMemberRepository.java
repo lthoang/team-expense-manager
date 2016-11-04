@@ -6,8 +6,8 @@ import org.springframework.data.repository.query.Param;
 
 import com.trhoanglee.expense.domain.TeamMember;
 
-public interface TeamMemberRepository extends JpaRepository<TeamMember, Long>{
+public interface TeamMemberRepository extends JpaRepository<TeamMember, String>{
 
 	@Query("delete from TeamMember where id in (:ids)")
-	void deleteTeamMembers(@Param("ids") Long... ids);
+	void deleteTeamMembers(@Param("ids") String... ids);
 }
