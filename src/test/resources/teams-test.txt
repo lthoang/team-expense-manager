@@ -1,0 +1,5 @@
+t001|Team1|description1|2016-11-01|001
+t002|Team2|description2|2016-11-01|002
+t003|Team3|description3|2016-11-01|003
+t004|Team4|description4|2016-11-01|004
+t005|Team5|description5|2016-11-01|005
