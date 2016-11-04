@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -14,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 
 
 @Entity
@@ -33,11 +36,12 @@ public class Team {
     @Column(name = "CREATED_DATE")
     private Date createdDate;
     
+    @JsonIdentityReference(alwaysAsId = true)
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "MANAGER_ID")
     private Member manager;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<TeamMember> teamMembers = new HashSet<>();
     
     public Team() {
@@ -98,5 +102,4 @@ public class Team {
     public void setTeamMembers(Set<TeamMember> teamMembers) {
         this.teamMembers = teamMembers;
     }
-    
 }

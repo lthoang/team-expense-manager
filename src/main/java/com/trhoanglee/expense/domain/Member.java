@@ -8,12 +8,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -37,14 +39,15 @@ public class Member {
 	@Column(name = "DOB")
 	private Date dob;
 
-	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+	@JsonIdentityReference(alwaysAsId = true)
+	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TeamMember> joinedTeams = new HashSet<>();
 
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<Team> managedTeams = new HashSet<>();
 
 	public Member() {
-		// We need to create a no-argument constructor whenever we have other arguments constructors 
+		// We need to create a no-argument constructor whenever we have other argument(s) constructors 
 	}
 	
 	public Member(Name name, String email, String mobile, Date dob) {

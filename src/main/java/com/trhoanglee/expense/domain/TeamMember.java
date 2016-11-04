@@ -8,30 +8,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 @Entity
 @Table(name = "TEAMS_MEMBERS")
 public class TeamMember {
     @Id
     @Column(name = "ID")
     private String id;
-    
+
+
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-    
+
     public TeamMember() {
-        
+
     }
-    
+
     public TeamMember(Team team, Member member) {
-    	this.team = team;
-    	this.member = member;
+        this.team = team;
+        this.member = member;
     }
-    
+
     public String getId() {
         return id;
     }

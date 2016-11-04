@@ -3,14 +3,13 @@ package com.trhoanglee.expense.service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.trhoanglee.expense.domain.Team;
 import com.trhoanglee.expense.domain.TeamMember;
 import com.trhoanglee.expense.repository.MemberRepository;
 import com.trhoanglee.expense.repository.TeamMemberRepository;
@@ -34,6 +33,10 @@ public class TeamMemberService {
         return String.valueOf(idGeneration.incrementAndGet());
     }
 
+    public List<TeamMember> getAll() {
+        return teamMemberRepo.findAll();
+    }
+    
     public TeamMember getTeamMember(String id) {
         return teamMemberRepo.findOne(id);
     }

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import com.trhoanglee.expense.service.MemberService;
+import com.trhoanglee.expense.service.TeamService;
 
 /**
  * @author hoangtle
@@ -19,7 +20,11 @@ public class Application {
 	public static void main(String... args) throws IOException {
 		ApplicationContext appContext = SpringApplication.run(Application.class, args);
 		MemberService memberService = appContext.getBean(MemberService.class);
+		TeamService teamService = appContext.getBean(TeamService.class);
+		
 		String membersFilePath = (args.length > 0)? args[0] : "etc/members.txt";
 		memberService.loadMembersFromFile(membersFilePath);
+		String teamsFilePath = (args.length > 1)? args[1] : "etc/teams.txt";
+		teamService.loadTeamsFromFile(teamsFilePath);
 	}
 }

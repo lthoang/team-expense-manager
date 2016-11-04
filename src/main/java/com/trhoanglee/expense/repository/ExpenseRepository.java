@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -15,6 +16,7 @@ public interface ExpenseRepository extends JpaRepository<Expense, String>{
             + "order by e.date desc")
     List<Expense> searchExpenses(@Param("keyword") String keyword, Pageable pageable);
     
+    @Modifying
     @Query("delete from Expense where id in (:ids)")
     void deleteExpenses(@Param("ids") String... ids);
 }
