@@ -15,12 +15,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
 @Table(name = "MEMBERS")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Member {
 	@Id
 	@Column(name = "ID")
@@ -39,7 +35,6 @@ public class Member {
 	@Column(name = "DOB")
 	private Date dob;
 
-	@JsonIdentityReference(alwaysAsId = true)
 	@OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Set<TeamMember> joinedTeams = new HashSet<>();
 

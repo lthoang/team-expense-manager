@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.trhoanglee.expense.domain.Member;
 import com.trhoanglee.expense.service.MemberService;
+import com.trhoanglee.expense.web.dto.MemberInfo;
 
 @RestController
 @RequestMapping(value = "/api/members")
@@ -27,7 +28,7 @@ public class MemberController {
 	private MemberService memberService;
 
 	@RequestMapping(method = GET)
-	public List<Member> searchMembers(
+	public List<MemberInfo> searchMembers(
 			@RequestParam(defaultValue="") String keyword, 
 			@RequestParam(defaultValue="0") int page, 
 			@RequestParam(defaultValue="10") int pageSize) {
@@ -35,7 +36,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = GET)
-	public Member getMember(@PathVariable("id") String id) {
+	public MemberInfo getMember(@PathVariable("id") String id) {
 	    return memberService.getMember(id);
 	}
 	

@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-
 @Entity
 @Table(name = "TEAMS_MEMBERS")
 public class TeamMember {
@@ -17,8 +15,6 @@ public class TeamMember {
     @Column(name = "ID")
     private String id;
 
-
-    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TEAM_ID")
     private Team team;

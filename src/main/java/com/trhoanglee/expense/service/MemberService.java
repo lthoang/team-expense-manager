@@ -3,6 +3,7 @@ package com.trhoanglee.expense.service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.trhoanglee.expense.domain.Member;
 import com.trhoanglee.expense.domain.Name;
 import com.trhoanglee.expense.repository.MemberRepository;
+import com.trhoanglee.expense.web.dto.MemberInfo;
 
 /**
  * @author trhoanglee
@@ -49,13 +51,22 @@ public class MemberService {
         memberRepo.deleteAllInBatch();
     }
 
-    public Member getMember(String id) {
-        return memberRepo.findOne(id);
+    public MemberInfo getMember(String id) {
+        Member member = memberRepo.findOne(id);
+        if (member == null) {
+            return null;
+        }
+        return new MemberInfo(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getDob());
     }
 
-    public List<Member> search(String keyword, int page, int pageSize) {
+    public List<MemberInfo> search(String keyword, int page, int pageSize) {
         keyword = (keyword == null) ? "" : keyword.toLowerCase();
-        return memberRepo.searchMembers(keyword, new PageRequest(page, pageSize));
+        List<MemberInfo> results = new ArrayList<>();
+        List<Member> members =  memberRepo.searchMembers(keyword, new PageRequest(page, pageSize));
+        members.forEach(member -> {
+            results.add(new MemberInfo(member.getId(), member.getName(), member.getEmail(), member.getMobile(), member.getDob()));
+        });
+        return results;
     }
 
     @Transactional
