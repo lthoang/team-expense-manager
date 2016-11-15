@@ -8,51 +8,51 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.trhoanglee.expense.domain.Expense;
-import com.trhoanglee.expense.repository.ExpenseRepository;
+import com.trhoanglee.expense.domain.Fund;
+import com.trhoanglee.expense.repository.FundRepository;
 
 /**
  * @author hoangtle
  */
 @Service
 @Transactional(readOnly = true)
-public class ExpenseService {
+public class FundService {
     private final AtomicInteger idGeneration = new AtomicInteger(1000);
     
     @Autowired
-    private ExpenseRepository expenseRepo;
+    private FundRepository fundRepo;
     
     public String idGenerationIncrementAndGet() {
         return String.valueOf(idGeneration.incrementAndGet());
     }
     
-    public List<Expense> search(String keyword, int page, int pageSize) {
+    public List<Fund> search(String keyword, int page, int pageSize) {
         keyword = (keyword == null) ? "" : keyword.toLowerCase();
-        return expenseRepo.searchExpenses(keyword, new PageRequest(page, pageSize));
+        return fundRepo.searchFunds(keyword, new PageRequest(page, pageSize));
     }
 
-    public Expense getExpense(String id) {
-        return expenseRepo.findOne(id);
+    public Fund getFund(String id) {
+        return fundRepo.findOne(id);
     }
 
     @Transactional
-    public Expense saveExpense(Expense expense) {
+    public Fund saveFund(Fund expense) {
         if (expense == null) {
             return null;
         }
         if (expense.getId() == null) {
             expense.setId(idGenerationIncrementAndGet());
         }
-        return expenseRepo.save(expense);
+        return fundRepo.save(expense);
     }
 
     @Transactional
-    public void deleteExpenses(String... ids) {
-        expenseRepo.deleteExpenses(ids);
+    public void deleteFunds(String... ids) {
+        fundRepo.deleteFunds(ids);
     }
     
-    public void deleteAllExpenses() {
-        expenseRepo.deleteAllInBatch();
+    public void deleteAllFunds() {
+        fundRepo.deleteAllInBatch();
     }
 
 }

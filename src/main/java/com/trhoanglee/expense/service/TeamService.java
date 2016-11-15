@@ -42,6 +42,10 @@ public class TeamService {
 		return teamRepo.findOne(id);
 	}
 
+	public Team getTeamByIdAndFetchTeamMembersEagerly(String id) {
+	    return teamRepo.findByIdAndFetchTeamMembersEagerly(id);
+	}
+	
 	@Transactional
 	public Team saveTeam(@Valid Team team) {
 	    if (team == null) {

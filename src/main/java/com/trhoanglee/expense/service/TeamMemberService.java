@@ -33,6 +33,10 @@ public class TeamMemberService {
         return String.valueOf(idGeneration.incrementAndGet());
     }
 
+    public List<TeamMember> getAllMembersInTeam(String id) {
+        return teamMemberRepo.getAllMembersInTeam(id);
+    }
+
     public List<TeamMember> getAll() {
         return teamMemberRepo.findAll();
     }

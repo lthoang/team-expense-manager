@@ -18,76 +18,76 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.trhoanglee.expense.domain.Expense;
-import com.trhoanglee.expense.service.ExpenseService;
-import com.trhoanglee.expense.web.dto.ExpenseInfo;
+import com.trhoanglee.expense.domain.Fund;
+import com.trhoanglee.expense.service.FundService;
+import com.trhoanglee.expense.web.dto.FundInfo;
 
 @RestController
-@RequestMapping(value = "/api/expenses")
-public class ExpenseController {
+@RequestMapping(value = "/api/funds")
+public class FundController {
 
 	@Autowired
-	private ExpenseService expenseService;
+	private FundService fundService;
 
 	@RequestMapping(method = GET)
-	public List<ExpenseInfo> searchExpenses(
+	public List<FundInfo> searchFunds(
 			@RequestParam(defaultValue="") String keyword, 
 			@RequestParam(defaultValue="0") int page, 
 			@RequestParam(defaultValue="10") int pageSize) {
-		List<Expense> expenses = expenseService.search(keyword, page, pageSize);
+		List<Fund> expenses = fundService.search(keyword, page, pageSize);
 		return convertToDto(expenses);
 	}
 
 
     @RequestMapping(value = "/{id}", method = GET)
-	public ExpenseInfo getExpense(@PathVariable("id") String id) {
-	    Expense expense = expenseService.getExpense(id);
+	public FundInfo getFund(@PathVariable("id") String id) {
+	    Fund expense = fundService.getFund(id);
         return convertToDto(expense);
 	}  
 
     @RequestMapping(method = POST)
 	@ResponseStatus(HttpStatus.CREATED)
-	public ExpenseInfo createExpense(@RequestBody ExpenseInfo expense) {
+	public FundInfo createFund(@RequestBody FundInfo expense) {
 		expense.setId(null);
-		Expense expenseEntity = convertToEntity(expense);
-		expenseEntity = expenseService.saveExpense(expenseEntity);
+		Fund expenseEntity = convertToEntity(expense);
+		expenseEntity = fundService.saveFund(expenseEntity);
 		return convertToDto(expenseEntity);
 	}
 
 
     @RequestMapping(value = "/{id}", method = PUT)
 	@ResponseStatus(HttpStatus.ACCEPTED)
-	public ExpenseInfo updateExpense(
+	public FundInfo updateFund(
 			@PathVariable("id") String id, 
-			@RequestBody ExpenseInfo expense) {
+			@RequestBody FundInfo expense) {
 		expense.setId(id);
-        Expense expenseEntity = convertToEntity(expense);
-        expenseEntity = expenseService.saveExpense(expenseEntity);
+        Fund expenseEntity = convertToEntity(expense);
+        expenseEntity = fundService.saveFund(expenseEntity);
         return convertToDto(expenseEntity);
     }
 	
 	@RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteContacts(@RequestParam String[] ids) {
-	    expenseService.deleteExpenses(ids);
+	    fundService.deleteFunds(ids);
     }
 	
-    private List<ExpenseInfo> convertToDto(List<Expense> expenses) {
-        List<ExpenseInfo> response = new ArrayList<>();
+    private List<FundInfo> convertToDto(List<Fund> expenses) {
+        List<FundInfo> response = new ArrayList<>();
         expenses.forEach(expense -> {
             response.add(convertToDto(expense));
         });
         return response;
     }
     
-    private ExpenseInfo convertToDto(Expense expense) {
-        ExpenseInfo response = new ExpenseInfo();
+    private FundInfo convertToDto(Fund expense) {
+        FundInfo response = new FundInfo();
         BeanUtils.copyProperties(expense, response);
         return response;
     }
     
-    private Expense convertToEntity(ExpenseInfo expense) {
-        Expense expenseEntity = new Expense();
+    private Fund convertToEntity(FundInfo expense) {
+        Fund expenseEntity = new Fund();
         BeanUtils.copyProperties(expense, expenseEntity);
         return expenseEntity;
     }

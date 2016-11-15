@@ -20,4 +20,7 @@ public interface TeamRepository extends JpaRepository<Team, String>{
 	@Modifying
 	@Query("delete from Team where id in (:ids)")
 	void deleteTeams(@Param("ids") String... ids);
+	
+	@Query("select t from Team t join fetch t.teamMembers where t.id like :id%")
+	public Team findByIdAndFetchTeamMembersEagerly(@Param("id") String id);
 }

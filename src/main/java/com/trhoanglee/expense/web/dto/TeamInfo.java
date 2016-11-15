@@ -60,5 +60,4 @@ public class TeamInfo {
     public void setManager(MemberInfo manager) {
         this.manager = manager;
     }
-
 }
