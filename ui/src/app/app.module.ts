@@ -8,12 +8,16 @@ import { MemberComponent } from './member/member.component';
 import { MembersComponent } from './members/members.component';
 import {MemberService} from "./member.service";
 import {AppRoutingModule} from "./app-routing.module";
+import { TeamsComponent } from './teams/teams.component';
+import { TeamComponent } from './team/team.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MemberComponent,
-    MembersComponent
+    MembersComponent,
+    TeamsComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

@@ -7,5 +7,5 @@ export class Member {
   name:Name;
   email:string;
   mobile:string;
-  dob:string;
+  dob:Date;
 }

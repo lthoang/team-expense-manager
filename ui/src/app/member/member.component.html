@@ -23,6 +23,8 @@
   </div>
   <div>
     <label>Date of birth: </label>
-    <input [(ngModel)]="member.dob" placeholder="25-01-1990"/>
+    <input type="date" [(ngModel)]="member.dob" placeholder="25-01-1990"/>
   </div>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
 </div>

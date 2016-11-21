@@ -1,3 +1,4 @@
+<h2>Members</h2>
 <ul class="border-box">
   <li *ngFor="let member of members"
       [class.selected]="member === selectedMember"
@@ -7,4 +8,9 @@
   </li>
 </ul>
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
-<app-member [member]="selectedMember"></app-member>
+<div *ngIf="selectedMember">
+  <h2>
+    {{selectedMember.name.fullNameFML | uppercase}}
+  </h2>
+  <button (click)="gotoDetail()">View Details</button>
+</div>

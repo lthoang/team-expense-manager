@@ -9,11 +9,12 @@ import {MemberService} from "../member.service";
   styleUrls: ['./members.component.css']
 })
 export class MembersComponent implements OnInit {
-  errorMessage:string;
   members:Member[];
   selectedMember:Member;
 
-  constructor(private memberService:MemberService) {
+  constructor(
+    private memberService:MemberService,
+    private router:Router) {
   }
 
   ngOnInit() {
@@ -22,13 +23,15 @@ export class MembersComponent implements OnInit {
 
   getMembers() {
     this.memberService.getMembers()
-      .then(
-        members => this.members = members,
-        error => this.errorMessage = <any>error);
-    console.log(JSON.stringify(this.members));
+      .then(members => this.members = members);
   }
 
   onSelect(member:Member):void {
     this.selectedMember = member;
   }
+
+  gotoDetail(): void {
+    this.router.navigate(['/members', this.selectedMember.id]);
+  }
+
 }
