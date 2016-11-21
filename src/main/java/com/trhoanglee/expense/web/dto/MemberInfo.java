@@ -3,15 +3,21 @@ package com.trhoanglee.expense.web.dto;
 import java.util.Date;
 
 import javax.persistence.Embedded;
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
 
 import com.trhoanglee.expense.domain.Name;
 
 public class MemberInfo {
     private String id;
 
+    @Valid
     @Embedded
     private Name name;
 
+    @Email
     private String email;
 
     private String mobile;

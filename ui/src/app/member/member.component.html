@@ -1,0 +1,28 @@
+<div *ngIf="member">
+  <h2>{{member.name.fullNameFML}} details!</h2>
+  <div><label>ID: </label>{{member.id}}</div>
+  <div>
+    <label>First name: </label>
+    <input [(ngModel)]="member.name.firstName" placeholder="A"/>
+  </div>
+  <div>
+    <label>Middle name: </label>
+    <input [(ngModel)]="member.name.middleName" placeholder="Van"/>
+  </div>
+  <div>
+    <label>Last name: </label>
+    <input [(ngModel)]="member.name.lastName" placeholder="Nguyen"/>
+  </div>
+  <div>
+    <label>Email: </label>
+    <input [(ngModel)]="member.email" placeholder="test@example.com"/>
+  </div>
+  <div>
+    <label>Mobile: </label>
+    <input [(ngModel)]="member.mobile" placeholder="0912345678"/>
+  </div>
+  <div>
+    <label>Date of birth: </label>
+    <input [(ngModel)]="member.dob" placeholder="25-01-1990"/>
+  </div>
+</div>

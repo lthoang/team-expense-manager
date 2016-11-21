@@ -62,7 +62,7 @@ public class MemberController {
 
     @RequestMapping(method = DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteContacts(@RequestParam String[] ids) {
+    public void deleteMembers(@RequestParam String[] ids) {
         memberService.deleteMembers(ids);
     }
 

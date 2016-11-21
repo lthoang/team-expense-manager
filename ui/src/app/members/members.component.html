@@ -1,0 +1,10 @@
+<ul class="border-box">
+  <li *ngFor="let member of members"
+      [class.selected]="member === selectedMember"
+      (click)="onSelect(member)">
+    <span class="badge">{{member.id}}</span>
+    <span>{{member.name.fullNameFML}}</span>
+  </li>
+</ul>
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
+<app-member [member]="selectedMember"></app-member>

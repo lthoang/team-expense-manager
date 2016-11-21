@@ -7,11 +7,24 @@ team-expense-manager
 
 ![Team expense management schema diagram](doc/TeamExpenseManager.png "Team expense management schema diagram")
 
-Run this project by execute the following command:
+Steps to build and run the project:
 
+1. Build UI package:
 ```
+cd ui
+ng build
+```
+The build artifacts will be stored in the `../src/main/resources/public/` directory.
+
+2. Run this project by execute the following command:
+```
+# Navigate back to project root folder
+cd ..
+# Run spring-boot
 mvn spring-boot:run
 ```
+
+Visit http://localhost:8080
 
 Api documentation: http://localhost:8080/swagger-ui.html
 
