@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, EventEmitter, Input, Output, OnDestroy} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
+import {Subscription} from "rxjs/Subscription";
 import 'rxjs/add/operator/switchMap';
 import {Member} from "./../domain/member";
 import {MemberService} from "../member.service";
@@ -10,9 +11,11 @@ import {MemberService} from "../member.service";
   templateUrl: './member.component.html',
   styleUrls: ['./member.component.css']
 })
-export class MemberComponent implements OnInit {
-  @Input()
+export class MemberComponent implements OnInit, OnDestroy {
   member: Member;
+  @Input()
+  editMode = false;
+  private sub: Subscription;
 
   constructor(
     private memberService: MemberService,
@@ -21,14 +24,17 @@ export class MemberComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params
+    this.sub = this.route.params
       .switchMap((params: Params) => this.memberService.getMember(params['id']))
       .subscribe(member => this.member = member);
   }
 
-  save(): void {
-    this.memberService.update(this.member)
-      .then(() => this.goBack());
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  edit() {
+    this.editMode = true;
   }
 
   goBack(): void {

@@ -4,3 +4,4 @@
 /.settings
 /ui/*.editorconfig
 /src/main/resources/public
+/*.DS_Store

@@ -72,4 +72,5 @@ export class MemberService {
     console.error(errMsg);
     return Promise.reject(errMsg);
   }
+
 }

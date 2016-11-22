@@ -1,4 +1,9 @@
 <h2>Members</h2>
+<button class="btn btn-default" (click)="addNewMember()">Add member</button>
+<div *ngIf="addNewMemberMode">
+  <app-member-form></app-member-form>
+</div>
+
 <ul class="border-box">
   <li *ngFor="let member of members"
       [class.selected]="member === selectedMember"

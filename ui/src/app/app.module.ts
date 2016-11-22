@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import {MemberService} from "./member.service";
 import {AppRoutingModule} from "./app-routing.module";
 import { TeamsComponent } from './teams/teams.component';
 import { TeamComponent } from './team/team.component';
+import { MemberFormComponent } from './member-form/member-form.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +18,15 @@ import { TeamComponent } from './team/team.component';
     MemberComponent,
     MembersComponent,
     TeamsComponent,
-    TeamComponent
+    TeamComponent,
+    MemberFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [MemberService],
   bootstrap: [AppComponent]

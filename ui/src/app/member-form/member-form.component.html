@@ -1,0 +1,61 @@
+<div *ngIf="member">
+  <h1>Member details</h1>
+  <form [formGroup]="memberForm" *ngIf="active" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="firstName">First name</label>
+      <input type="text" id="firstName" class="form-control"
+             formControlName="firstName" required>
+      <div *ngIf="formErrors.firstName" class="alert alert-danger">
+        {{ formErrors.firstName }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="middleName">Middle name</label>
+      <input type="text" id="middleName" class="form-control"
+             formControlName="middleName">
+      <div *ngIf="formErrors.middleName" class="alert alert-danger">
+        {{ formErrors.middleName }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last name</label>
+      <input type="text" id="lastName" class="form-control"
+             formControlName="lastName" required>
+      <div *ngIf="formErrors.lastName" class="alert alert-danger">
+        {{ formErrors.lastName }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" class="form-control"
+             formControlName="email" required>
+      <div *ngIf="formErrors.email" class="alert alert-danger">
+        {{ formErrors.email }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="mobile">Mobile</label>
+      <input type="text" id="mobile" class="form-control"
+             formControlName="mobile" required>
+      <div *ngIf="formErrors.mobile" class="alert alert-danger">
+        {{ formErrors.mobile }}
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of birth</label>
+      <input type="date" id="dob" class="form-control"
+             formControlName="dob" required>
+      <div *ngIf="formErrors.dob" class="alert alert-danger">
+        {{ formErrors.dob }}
+      </div>
+    </div>
+
+    <button type="button" class="btn btn-default"
+            (click)="goBack()">Cancel
+    </button>
+    <button type="submit" class="btn btn-default"
+            [disabled]="!memberForm.valid">Submit
+    </button>
+  </form>
+</div>
+

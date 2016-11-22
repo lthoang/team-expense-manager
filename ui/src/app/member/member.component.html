@@ -1,30 +1,36 @@
-<div *ngIf="member">
-  <h2>{{member.name.fullNameFML}} details!</h2>
-  <div><label>ID: </label>{{member.id}}</div>
-  <div>
-    <label>First name: </label>
-    <input [(ngModel)]="member.name.firstName" placeholder="A"/>
+<div class="container">
+  <div *ngIf="!editMode">
+    <div *ngIf="member">
+      <h2>{{member.name.fullNameFML}} details!</h2>
+      <div class="row">
+        <div class="col-xs-3">First name</div>
+        <div class="col-xs-9 pull-left">{{member.name.firstName}}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Middle name</div>
+        <div class="col-xs-9 pull-left">{{member.name.middleName}}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Last name</div>
+        <div class="col-xs-9 pull-left">{{member.name.lastName}}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Email</div>
+        <div class="col-xs-9 pull-left">{{member.email}}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Mobile</div>
+        <div class="col-xs-9 pull-left">{{member.mobile}}</div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">Date of birth</div>
+        <div class="col-xs-9 pull-left">{{member.dob}}</div>
+      </div>
+      <br>
+      <button class="btn btn-default" (click)="edit()">Edit</button>
+    </div>
   </div>
-  <div>
-    <label>Middle name: </label>
-    <input [(ngModel)]="member.name.middleName" placeholder="Van"/>
+  <div *ngIf="editMode">
+    <app-member-form [member]="member"></app-member-form>
   </div>
-  <div>
-    <label>Last name: </label>
-    <input [(ngModel)]="member.name.lastName" placeholder="Nguyen"/>
-  </div>
-  <div>
-    <label>Email: </label>
-    <input [(ngModel)]="member.email" placeholder="test@example.com"/>
-  </div>
-  <div>
-    <label>Mobile: </label>
-    <input [(ngModel)]="member.mobile" placeholder="0912345678"/>
-  </div>
-  <div>
-    <label>Date of birth: </label>
-    <input type="date" [(ngModel)]="member.dob" placeholder="25-01-1990"/>
-  </div>
-  <button (click)="goBack()">Back</button>
-  <button (click)="save()">Save</button>
 </div>

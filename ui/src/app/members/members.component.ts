@@ -11,6 +11,7 @@ import {MemberService} from "../member.service";
 export class MembersComponent implements OnInit {
   members:Member[];
   selectedMember:Member;
+  addNewMemberMode = false;
 
   constructor(
     private memberService:MemberService,
@@ -34,4 +35,7 @@ export class MembersComponent implements OnInit {
     this.router.navigate(['/members', this.selectedMember.id]);
   }
 
+  addNewMember() {
+    this.addNewMemberMode = true;
+  }
 }
