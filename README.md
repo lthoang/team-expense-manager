@@ -7,16 +7,20 @@ team-expense-manager
 
 ![Team expense management schema diagram](doc/TeamExpenseManager.png "Team expense management schema diagram")
 
-Steps to build and run the project:
+## Prerequisites
 
-1. Build UI package:
+* Java 8
+* Maven 3
+* [Angular CLI](https://github.com/angular/angular-cli)
+
+## Build UI package:
 ```
 cd ui
 ng build
 ```
 The build artifacts will be stored in the `../src/main/resources/public/` directory.
 
-2. Run this project by execute the following command:
+## Run this project by execute the following command:
 ```
 # Navigate back to project root folder
 cd ..

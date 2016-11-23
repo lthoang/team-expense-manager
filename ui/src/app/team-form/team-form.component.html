@@ -1,0 +1,56 @@
+<div *ngIf="createTeamMode">
+  <div *ngIf="team">
+    <h1>Team details</h1>
+    <form [formGroup]="teamForm" active (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control"
+               formControlName="name" required>
+        <div *ngIf="formErrors.name" class="alert alert-danger">
+          {{ formErrors.name }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" id="description" class="form-control"
+               formControlName="description">
+        <div *ngIf="formErrors.description" class="alert alert-danger">
+          {{ formErrors.description }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="createdDate">Founded date</label>
+        <input type="date" id="createdDate" class="form-control"
+               formControlName="createdDate" required>
+        <div *ngIf="formErrors.createdDate" class="alert alert-danger">
+          {{ formErrors.createdDate }}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="manager">Manager</label>
+        <input #searchBox id="manager" class="form-control"
+               formControlName="managerName" (keyup)="searchManager(searchBox.value)" required>
+        <div *ngFor="let manager of managers | async"
+             (click)="setManager(manager)" class="search-result">
+          {{manager.name.fullNameFML}}
+        </div>
+        <div *ngIf="formErrors.managerName" class="alert alert-danger">
+          {{ formErrors.manager }}
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-default"
+              (click)="navigateBackToRoot()">Cancel
+      </button>
+      <button type="submit" class="btn btn-default"
+              [disabled]="!teamForm.valid">Submit
+      </button>
+    </form>
+  </div>
+</div>
+<div *ngIf="!createTeamMode">
+  <app-teams [createTeamMode]="createTeamMode"></app-teams>
+</div>
+
+
+

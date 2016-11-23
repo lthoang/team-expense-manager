@@ -1,3 +1,5 @@
+import './rxjs-extension';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
@@ -11,6 +13,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import { TeamsComponent } from './teams/teams.component';
 import { TeamComponent } from './team/team.component';
 import { MemberFormComponent } from './member-form/member-form.component';
+import {TeamService} from "./team.service";
+import { TeamFormComponent } from './team-form/team-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,8 @@ import { MemberFormComponent } from './member-form/member-form.component';
     MembersComponent,
     TeamsComponent,
     TeamComponent,
-    MemberFormComponent
+    MemberFormComponent,
+    TeamFormComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,10 @@ import { MemberFormComponent } from './member-form/member-form.component';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [MemberService],
+  providers: [
+    MemberService,
+    TeamService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

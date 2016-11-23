@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {Router} from "@angular/router";
 import {Team} from "../domain/team";
 import {TeamService} from "../team.service";
@@ -11,13 +11,15 @@ import {TeamService} from "../team.service";
 export class TeamsComponent implements OnInit {
   teams:Team[];
   selectedTeam:Team;
-
+  @Input()
+  createTeamMode = false;
   constructor(
     private teamService:TeamService,
     private router:Router
   ) { }
 
   ngOnInit() {
+    console.log('on  init teams component');
     this.getTeams();
   }
 
@@ -30,7 +32,11 @@ export class TeamsComponent implements OnInit {
     this.selectedTeam = team;
   }
 
-  gotoDetail(): void {
-    this.router.navigate(['/teams', this.selectedTeam.id]);
+  createTeam() {
+    this.createTeamMode = true;
+  }
+
+  cancelCreateTeam() {
+    this.createTeamMode = false;
   }
 }

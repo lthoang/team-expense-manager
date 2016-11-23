@@ -14,7 +14,6 @@ import {MemberService} from "../member.service";
 export class MemberFormComponent implements OnInit {
   @Input()
   member = new Member(null, new Name('', '', ''), '', '', new Date());
-  active = true;
   memberForm: FormGroup;
 
   membersUrl = '/members';
@@ -52,7 +51,6 @@ export class MemberFormComponent implements OnInit {
   }
 
   buildForm(): void {
-    console.log('something');
     this.memberForm = this.formBuilder.group({
       'id': [this.member.id],
       'firstName': [this.member.name.firstName, [

@@ -8,4 +8,13 @@ export class Team {
   description:string;
   createdDate:Date;
   manager:Member;
+  totalFund:number;
+  totalExpense:number;
+  constructor(id:string,name:string,description:string,createdDate:Date,manager:Member) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.createdDate = createdDate;
+    this.manager = manager;
+  }
 }

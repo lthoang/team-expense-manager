@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Headers, Http, Response} from '@angular/http';
 
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
 import {Member} from "./domain/member";
 
@@ -8,8 +9,13 @@ import {Member} from "./domain/member";
 export class MemberService {
   private headers = new Headers({'Content-Type': 'application/json'});
   private membersUrl = 'api/members';
-
   constructor(private http:Http) {
+  }
+
+  search(term: string): Observable<Member[]> {
+    return this.http
+      .get(`api/members?keyword=${term}`)
+      .map(this.extractData);
   }
 
   getMembers():Promise<Member[]> {

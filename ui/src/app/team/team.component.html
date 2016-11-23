@@ -1,3 +1,29 @@
-<p>
-  team works!
-</p>
+<div *ngIf="team">
+  <h2>{{team.name}}</h2>
+  <h3>Manager: {{team.manager.name.fullNameFML}}</h3>
+  <button class="btn btn-default" (click)="addMember()">Add member</button>
+  <h3>Funds</h3>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Member</th>
+      <th>DOB</th>
+      <th>Total fund</th>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>{{team.totalFund}}</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let teamMember of teamMembers"
+        [class.selected]="teamMember === selectedTeamMember"
+        (click)="onSelect(teamMember)">
+      <td>{{teamMember.name}}</td>
+      <td>{{teamMember.dob}}</td>
+      <td>{{teamMember.totalFunded}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

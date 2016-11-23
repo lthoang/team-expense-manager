@@ -1,3 +1,28 @@
-<p>
-  teams works!
-</p>
+<div *ngIf="!createTeamMode">
+  <h2>Teams</h2>
+  <button class="btn btn-default" (click)="createTeam()">Create team</button>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Manager</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let team of teams"
+        [class.selected]="team === selectedTeam"
+        (click)="onSelect(team)">
+      <td>{{team.name}}</td>
+      <td>{{team.manager.name.fullNameFML}}</td>
+      <td>{{team.description}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div *ngIf="selectedTeam">
+    {{selectedTeam.name}}
+  </div>
+</div>
+<div *ngIf="createTeamMode">
+  <app-team-form [createTeamMode]="createTeamMode"></app-team-form>
+</div>

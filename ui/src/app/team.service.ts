@@ -22,6 +22,23 @@ export class TeamService {
     return body || {};
   }
 
+  create(team:Team): Promise<Team> {
+    return this.http
+      .post(this.teamsUrl, JSON.stringify(team), {headers: this.headers})
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
+
+  update(team:Team): Promise<Team> {
+    const url = `${this.teamsUrl}/${team.id}`;
+    return this.http
+      .put(url, JSON.stringify(team), {headers: this.headers})
+      .toPromise()
+      .then(() => team)
+      .catch(this.handleError);
+  }
+
   private handleError (error: Response | any) {
     // In a real world app, we might use a remote logging infrastructure
     let errMsg: string;

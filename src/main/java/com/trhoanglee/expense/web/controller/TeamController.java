@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.trhoanglee.expense.domain.Member;
 import com.trhoanglee.expense.domain.Team;
 import com.trhoanglee.expense.service.TeamService;
 import com.trhoanglee.expense.web.dto.MemberInfo;
@@ -86,6 +87,9 @@ public class TeamController {
     
     private Team convertToEntity(TeamInfo team) {
         Team teamEntity = new Team();
+        Member manager = new Member();
+        BeanUtils.copyProperties(team.getManager(), manager);
+        teamEntity.setManager(manager);
         BeanUtils.copyProperties(team, teamEntity);
         return teamEntity;
     }
